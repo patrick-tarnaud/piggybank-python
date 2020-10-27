@@ -1,21 +1,26 @@
+import gi
+
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk, GLib
+
 from imports import import_ofx
 import repository.filerepo as filerepo
+from ui.piggy_bank_window import PiggyBankWindow
 
 
 def main():
-    account = import_ofx.import_from_ofx_file('/home/patrick/Téléchargements/telechargement.ofx')
-    print ('** account and transactions loaded from ofx file')
-    print(account)
-    for tx in account.transactions:
-        print(tx)
-    filerepo.save([account])
-    print ('** account and transactions loaded from ofx file')
-    new_accounts = filerepo.load('account.sav')
-    for acc in new_accounts:
-        print(acc)
-        for tx in acc.transactions:
-            print(tx)
 
+    account = import_ofx.import_from_ofx_file('/home/patrick/Téléchargements/telechargement.ofx')
+    filerepo.save([account])
+    new_accounts = filerepo.load('account.sav')
+
+    pbw = PiggyBankWindow()
+    pbw.show_all()
+    pbw.connect("destroy", Gtk.main_quit)
+    pbw.set_content(new_accounts)
+
+    Gtk.main()
 
 if __name__ == '__main__':
     main()
+
