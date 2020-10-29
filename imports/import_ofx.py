@@ -1,7 +1,7 @@
 import ofxtools
-from model.transaction import Transaction
+from models.transaction import Transaction
 from datetime import datetime
-from model.account import Account
+from models.account import Account
 
 
 def import_from_ofx_file(filename: str) -> Account:

@@ -1,4 +1,4 @@
-from model.account import Account
+from models.account import Account
 import pickle
 
 
